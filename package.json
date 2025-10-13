@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@radix-ui/react-select": "^2.2.6",
+    "recharts": "^3.2.0"
+  }
+}
