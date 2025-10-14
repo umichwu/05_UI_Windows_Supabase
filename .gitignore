@@ -1,1 +1,4 @@
 .vercel
+venv/
+.venv/
+.ui-windows-supabase\face-api\venv\

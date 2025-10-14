@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npm run build:*)",
+      "Bash(cat:*)",
+      "Bash(pkill:*)",
+      "Bash(xargs ls:*)",
+      "Bash(npm run lint)",
+      "Bash(chmod:*)",
+      "Bash(find:*)",
+      "Bash(netstat:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(sudo apt:*)",
+      "Bash(sudo apt install:*)",
+      "Bash(ss:*)",
+      "Read(//mnt/d/2022_After/Gilbert/_Code/_Claude_Code/**)",
+      "Bash(kill:*)",
+      "Bash(node:*)",
+      "Bash(venv/bin/python3:*)",
+      "Bash(venv/bin/pip3 install:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(nvidia-smi:*)",
+      "Bash(lspci:*)",
+      "Read(//proc/driver/**)",
+      "Bash(echo:*)",
+      "Bash(tree:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
