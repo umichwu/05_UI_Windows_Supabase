@@ -24,10 +24,10 @@ export function PerformanceMonitor() {
       setIsVisible(true)
     }
 
-    window.addEventListener('performance-data' as any, handlePerformanceData as any)
+    window.addEventListener('performance-data', handlePerformanceData as EventListener)
 
     return () => {
-      window.removeEventListener('performance-data' as any, handlePerformanceData as any)
+      window.removeEventListener('performance-data', handlePerformanceData as EventListener)
     }
   }, [])
 

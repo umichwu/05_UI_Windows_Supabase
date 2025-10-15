@@ -173,7 +173,7 @@ export function EnrollmentDialog({ open, onOpenChange }: EnrollmentDialogProps) 
         {step === 'input' && (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="person-name">Person's Name</Label>
+              <Label htmlFor="person-name">Person&apos;s Name</Label>
               <Input
                 id="person-name"
                 placeholder="Enter full name..."

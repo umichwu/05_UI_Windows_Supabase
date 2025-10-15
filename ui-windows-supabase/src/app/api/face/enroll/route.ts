@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Generate mock embeddings (512-dimensional for Facenet512)
-      const mockEmbeddings = images.map((_, index) => ({
+      const mockEmbeddings = images.map(() => ({
         label,
         model: 'Facenet512',
         embedding: Array.from({ length: 512 }, () => Math.random() * 2 - 1) // Random values between -1 and 1

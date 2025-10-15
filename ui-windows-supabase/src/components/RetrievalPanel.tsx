@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Search,
   Filter,
@@ -382,7 +382,7 @@ export const RetrievalPanel = ({ conversationId, className }: RetrievalPanelProp
                     value={filters.dateRange}
                     onChange={(e) => setFilters(prev => ({
                       ...prev,
-                      dateRange: e.target.value as any
+                      dateRange: e.target.value as 'all' | 'week' | 'month' | 'year'
                     }))}
                   >
                     <option value="all">All Time</option>
@@ -432,7 +432,7 @@ export const RetrievalPanel = ({ conversationId, className }: RetrievalPanelProp
           {!loading && searchQuery && filteredResults.length === 0 && (
             <div className="text-center py-8">
               <Search className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No results found for "{searchQuery}"</p>
+              <p className="text-gray-500">No results found for &quot;{searchQuery}&quot;</p>
               <p className="text-sm text-gray-400 mt-1">
                 Try different keywords or adjust your filters
               </p>

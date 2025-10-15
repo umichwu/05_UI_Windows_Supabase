@@ -42,7 +42,6 @@ interface AttachmentGridProps {
 
 export const AttachmentGrid = ({ attachments, className = '' }: AttachmentGridProps) => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
-  const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({})
 
   // Get file icon based on mime type
   const getFileIcon = (mimeType?: string) => {

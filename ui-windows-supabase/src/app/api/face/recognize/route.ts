@@ -103,8 +103,8 @@ export async function POST(request: NextRequest) {
       console.log('Using Python DeepFace script for face detection')
 
       try {
-        const { exec } = require('child_process')
-        const { promisify } = require('util')
+        const { exec } = await import('child_process')
+        const { promisify } = await import('util')
         const execAsync = promisify(exec)
 
         // Convert image to base64 if it's a File
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
         console.log('📦 Image data preview:', imageBase64.substring(0, 50) + '...')
 
         // Write image data to temp file to avoid shell escaping issues
-        const fs = require('fs')
+        const fs = await import('fs')
         const tempFile = `/tmp/face_input_${Date.now()}.txt`
         fs.writeFileSync(tempFile, imageBase64)
 

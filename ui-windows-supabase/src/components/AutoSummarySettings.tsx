@@ -49,12 +49,15 @@ export const AutoSummarySettings = () => {
       setLoading(true)
       setError(null)
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data, error } = await (supabase as any).rpc('get_auto_summary_settings')
 
       if (error) throw error
 
-      setConfig(data)
-      setTempThreshold((data as any)?.message_threshold || 5)
+      if (data) {
+        setConfig(data as AutoSummaryConfig)
+        setTempThreshold((data as AutoSummaryConfig).message_threshold || 5)
+      }
     } catch (err) {
       console.error('Error loading config:', err)
       setError(err instanceof Error ? err.message : 'Failed to load configuration')
@@ -86,6 +89,7 @@ export const AutoSummarySettings = () => {
       setSaving(true)
       setError(null)
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any).rpc('set_auto_summary_enabled', {
         enabled: enabled
       })
@@ -109,6 +113,7 @@ export const AutoSummarySettings = () => {
       setSaving(true)
       setError(null)
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any).rpc('set_auto_summary_threshold', {
         threshold: tempThreshold
       })

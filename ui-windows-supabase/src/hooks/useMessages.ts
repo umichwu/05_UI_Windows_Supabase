@@ -356,7 +356,7 @@ export const useMessages = (conversationId: string | null) => {
       setMessages([])
       setLoading(false)
     }
-  }, [conversationId, user])
+  }, [conversationId, user, fetchMessages])
 
   return {
     messages,

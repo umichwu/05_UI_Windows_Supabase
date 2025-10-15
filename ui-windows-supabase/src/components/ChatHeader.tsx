@@ -33,7 +33,8 @@ interface ChatHeaderProps {
 export const ChatHeader = ({
   conversation,
   isOnline = true,
-  onMobileMenuOpen,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onMobileMenuOpen: _onMobileMenuOpen,
   sidebarContent,
   selectedModel = 'chatgpt',
   onModelChange

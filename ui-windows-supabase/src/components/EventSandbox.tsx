@@ -368,13 +368,14 @@ export const EventSandbox = () => {
       loadRecentEvents()
 
       // Set up real-time subscription
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const subscription = (supabase as any)
-        .schema('app')
         .channel('outbox_events_sandbox')
         .on(
           'postgres_changes',
           {
             event: '*',
+            schema: 'app',
             table: 'outbox_events',
             filter: `user_id=eq.${user.id}`
           },

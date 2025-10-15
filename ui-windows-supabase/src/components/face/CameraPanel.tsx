@@ -86,7 +86,12 @@ export const CameraPanel = () => {
   const [lastResult, setLastResult] = useState<FaceDetectionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [detectedFaces, setDetectedFaces] = useState<any[]>([])
+  const [detectedFaces, setDetectedFaces] = useState<Array<{
+    bbox?: number[];
+    identity?: { label: string; user_id: string; distance: number };
+    emotion?: { dominant: string; confidence: number; scores: Record<string, number> };
+    spoof?: boolean;
+  }>>([])
 
   const CAPTURE_INTERVAL = parseInt(process.env.NEXT_PUBLIC_CAMERA_INTERVAL_MS || '1000') // More frequent like your friend's code
 
@@ -160,8 +165,8 @@ export const CameraPanel = () => {
 
         // Draw label background
         const label = face.identity ?
-          `${face.identity.label} (${face.emotion?.dominant}) ${(face.emotion?.confidence * 100).toFixed(0)}%` :
-          `${face.emotion?.dominant} ${(face.emotion?.confidence * 100).toFixed(0)}%`
+          `${face.identity.label} (${face.emotion?.dominant}) ${((face.emotion?.confidence || 0) * 100).toFixed(0)}%` :
+          `${face.emotion?.dominant} ${((face.emotion?.confidence || 0) * 100).toFixed(0)}%`
 
         context.font = '16px Arial'
         const labelMetrics = context.measureText(label)

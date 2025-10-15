@@ -237,8 +237,9 @@ export const useFaceStore = create<FaceState>((set, get) => ({
     if (total === 0) return totalCounts
 
     Object.keys(totalCounts).forEach((emotion) => {
-      totalCounts[emotion as keyof EmotionDistribution] =
-        Math.round((totalCounts[emotion as keyof EmotionDistribution] / total) * 100)
+      const key = emotion as keyof EmotionDistribution
+      const count = totalCounts[key] || 0
+      totalCounts[key] = Math.round((count / total) * 100)
     })
 
     return totalCounts

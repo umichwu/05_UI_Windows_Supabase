@@ -21,7 +21,6 @@ import {
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -34,10 +33,8 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  AlertCircle,
   Skull,
   Play,
-  SkipForward,
   Eye,
   Calendar
 } from 'lucide-react'
@@ -61,7 +58,6 @@ interface OutboxEvent {
 export const OutboxTable = () => {
   const [events, setEvents] = useState<OutboxEvent[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedEvent, setSelectedEvent] = useState<OutboxEvent | null>(null)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [showPayloadDialog, setShowPayloadDialog] = useState<OutboxEvent | null>(null)
   const [filter, setFilter] = useState<'all' | 'pending' | 'failed' | 'dead'>('all')
@@ -207,13 +203,14 @@ export const OutboxTable = () => {
     loadEvents()
 
     // Set up real-time subscription
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const subscription = (supabase as any)
-      .schema('app')
       .channel('outbox_events')
       .on(
         'postgres_changes',
         {
           event: '*',
+          schema: 'app',
           table: 'outbox_events'
         },
         () => {

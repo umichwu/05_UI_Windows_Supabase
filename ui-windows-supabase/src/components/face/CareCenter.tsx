@@ -215,6 +215,7 @@ export const CareCenter = () => {
   // Trigger mood rollup
   const triggerMoodRollup = async () => {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { error } = await (supabase as any).rpc('rollup_mood_windows', {
         p_user: user?.id,
         p_window_sec: selectedTimeframe * 60
@@ -473,7 +474,7 @@ export const CareCenter = () => {
                         key={emotion}
                         type="monotone"
                         dataKey={emotion}
-                        stroke={(EMOTION_COLORS as any)[emotion]}
+                        stroke={EMOTION_COLORS[emotion as keyof typeof EMOTION_COLORS]}
                         strokeWidth={2}
                       />
                     ))}
@@ -529,7 +530,7 @@ export const CareCenter = () => {
                       onClick={() => closeIncident(incident.id)}
                     >
                       <CheckCircle2 className="h-4 w-4 mr-2" />
-                      I'm OK now
+                      I&apos;m OK now
                     </Button>
                   )}
                 </div>

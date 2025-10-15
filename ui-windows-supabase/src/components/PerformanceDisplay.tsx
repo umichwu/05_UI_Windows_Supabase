@@ -19,7 +19,7 @@ interface PerformanceSummary {
 }
 
 export const PerformanceDisplay = () => {
-  const [lastPerformance, setLastPerformance] = useState<PerformanceSummary | null>(null)
+  const [lastPerformance] = useState<PerformanceSummary | null>(null)
 
   useEffect(() => {
     // Listen for performance data from console

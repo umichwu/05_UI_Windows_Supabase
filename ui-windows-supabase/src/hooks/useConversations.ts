@@ -188,7 +188,7 @@ export const useConversations = () => {
       setConversations([])
       setLoading(false)
     }
-  }, [user])
+  }, [user, fetchConversations])
 
   return {
     conversations,

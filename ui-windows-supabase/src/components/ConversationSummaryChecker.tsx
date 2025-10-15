@@ -22,7 +22,7 @@ interface ConversationDetailModalProps {
   onClose?: () => void
 }
 
-const ConversationDetailModal = ({ conversationId, onClose }: ConversationDetailModalProps) => {
+const ConversationDetailModal = ({ conversationId }: ConversationDetailModalProps) => {
   const [details, setDetails] = useState<{ summary: ConversationSummary | null, messages: Message[] } | null>(null)
   const [loading, setLoading] = useState(false)
   const { getConversationWithMessages } = useConversationSummary()
@@ -132,7 +132,7 @@ const ConversationDetailModal = ({ conversationId, onClose }: ConversationDetail
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4 max-h-96 overflow-y-auto">
-                    {details.messages.map((message, index) => (
+                    {details.messages.map((message) => (
                       <div
                         key={message.id}
                         className={`p-3 rounded-lg border ${
@@ -172,9 +172,8 @@ const ConversationDetailModal = ({ conversationId, onClose }: ConversationDetail
 }
 
 export const ConversationSummaryChecker = () => {
-  const { summaries, loading, error, checkSummaryStatus, refetch } = useConversationSummary()
+  const { summaries, loading, error, refetch } = useConversationSummary()
   const [refreshing, setRefreshing] = useState(false)
-  const [selectedConversation, setSelectedConversation] = useState<string | null>(null)
 
   const handleRefresh = async () => {
     setRefreshing(true)
@@ -195,7 +194,7 @@ export const ConversationSummaryChecker = () => {
     })
   }
 
-  const getSummaryStatusBadge = (summary: ConversationSummary | null, messageCount: number) => {
+  const getSummaryStatusBadge = (summary: ConversationSummary | null) => {
     if (!summary) {
       return (
         <Badge variant="destructive" className="flex items-center gap-1">
@@ -274,7 +273,7 @@ export const ConversationSummaryChecker = () => {
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    {getSummaryStatusBadge(item.summary, item.messageCount)}
+                    {getSummaryStatusBadge(item.summary)}
                     <Badge variant="outline" className="flex items-center gap-1">
                       <MessageSquare className="h-3 w-3" />
                       {item.messageCount} messages
@@ -290,7 +289,6 @@ export const ConversationSummaryChecker = () => {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => setSelectedConversation(item.conversationId)}
                         >
                           <Eye className="h-4 w-4 mr-1" />
                           View Details
@@ -298,7 +296,6 @@ export const ConversationSummaryChecker = () => {
                       </DialogTrigger>
                       <ConversationDetailModal
                         conversationId={item.conversationId}
-                        onClose={() => setSelectedConversation(null)}
                       />
                     </Dialog>
                   </div>

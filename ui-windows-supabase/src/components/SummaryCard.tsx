@@ -286,7 +286,7 @@ export const SummaryCard = ({ conversationId, className }: SummaryCardProps) => 
             <FileText className="h-12 w-12 text-gray-300 mx-auto mb-3" />
             <p className="text-gray-500 mb-3">No summary available for this conversation</p>
             <p className="text-sm text-gray-400 mb-4">
-              Click "Refresh" to generate a summary of the conversation
+              Click &quot;Refresh&quot; to generate a summary of the conversation
             </p>
           </div>
         )}

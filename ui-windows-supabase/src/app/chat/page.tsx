@@ -14,7 +14,7 @@ import { useMessages } from '@/hooks/useMessages'
 
 function ChatPageContent() {
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null)
-  const [isOnline, setIsOnline] = useState(true)
+  const [isOnline] = useState(true)
   const [isGenerating, setIsGenerating] = useState(false)
   const [showDatabaseTest, setShowDatabaseTest] = useState(false)
   const [selectedModel, setSelectedModel] = useState<'chatgpt' | 'gemini'>('chatgpt')

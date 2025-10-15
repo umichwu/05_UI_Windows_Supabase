@@ -1,6 +1,5 @@
 'use client'
 
-import { SummaryCard } from '@/components/SummaryCard'
 import { MemoryPanel } from '@/components/MemoryPanel'
 import { RetrievalPanel } from '@/components/RetrievalPanel'
 import { SummaryTestCard } from '@/components/SummaryTestCard'
@@ -40,7 +39,7 @@ export default function DemoPanelsPage() {
             🧪 Summary Test Suite
           </h2>
           <p className="text-gray-600 mb-4">
-            Click "Run Summary Test" to create sample data and test the entire summary workflow
+            Click &quot;Run Summary Test&quot; to create sample data and test the entire summary workflow
           </p>
           <SummaryTestCard className="max-w-2xl" />
         </section>
