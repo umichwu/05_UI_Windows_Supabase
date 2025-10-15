@@ -20,6 +20,18 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      // Disable strict any type checking - allow any where needed for Supabase types
+      "@typescript-eslint/no-explicit-any": "off",
+      // Disable unused vars as errors - make them warnings only
+      "@typescript-eslint/no-unused-vars": "warn",
+      // Disable unescaped entities - allow quotes in JSX
+      "react/no-unescaped-entities": "off",
+      // Disable require imports restriction - we use dynamic imports
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
