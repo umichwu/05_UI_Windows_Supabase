@@ -27,14 +27,15 @@ export const useConversations = () => {
       if (error) throw error
 
       setConversations(data || [])
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Unknown error occurred while fetching conversations'
+    } catch (err: unknown) {
+      const error = err as { message?: string; details?: string; hint?: string; code?: string }
+      const errorMessage = error?.message || 'Unknown error occurred while fetching conversations'
       console.error('Error fetching conversations:', errorMessage)
       console.error('Error details:', {
         message: errorMessage,
-        details: err?.details || null,
-        hint: err?.hint || null,
-        code: err?.code || null
+        details: error?.details || null,
+        hint: error?.hint || null,
+        code: error?.code || null
       })
       setError(errorMessage)
     } finally {
@@ -63,14 +64,15 @@ export const useConversations = () => {
       const newConversation = data as Conversation
       setConversations(prev => [newConversation, ...prev])
       return newConversation
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Unknown error occurred while creating conversation'
+    } catch (err: unknown) {
+      const error = err as { message?: string; details?: string; hint?: string; code?: string }
+      const errorMessage = error?.message || 'Unknown error occurred while creating conversation'
       console.error('Error creating conversation:', errorMessage)
       console.error('Error details:', {
         message: errorMessage,
-        details: err?.details || null,
-        hint: err?.hint || null,
-        code: err?.code || null,
+        details: error?.details || null,
+        hint: error?.hint || null,
+        code: error?.code || null,
         data: { title, user_id: user.id }
       })
       setError(errorMessage)
@@ -97,8 +99,9 @@ export const useConversations = () => {
         )
       )
       return true
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err: unknown) {
+      const error = err as { message?: string }
+      setError(error.message || 'Failed to rename conversation')
       console.error('Error renaming conversation:', err)
       return false
     }
@@ -126,8 +129,9 @@ export const useConversations = () => {
         )
       )
       return true
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err: unknown) {
+      const error = err as { message?: string }
+      setError(error.message || 'Failed to archive conversation')
       console.error('Error archiving conversation:', err)
       return false
     }
@@ -148,8 +152,9 @@ export const useConversations = () => {
 
       setConversations(prev => prev.filter(conv => conv.id !== id))
       return true
-    } catch (err: any) {
-      setError(err.message)
+    } catch (err: unknown) {
+      const error = err as { message?: string }
+      setError(error.message || 'Failed to delete conversation')
       console.error('Error deleting conversation:', err)
       return false
     }

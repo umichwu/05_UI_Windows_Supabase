@@ -32,7 +32,7 @@ interface CareIncident {
   status: 'open' | 'ack' | 'closed'
   first_detected_at: string
   last_detected_at: string
-  context: any
+  context: { ratio: number; hit: number; total: number } | null
   care_rules?: {
     name: string
     description: string

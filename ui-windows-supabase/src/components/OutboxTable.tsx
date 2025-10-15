@@ -52,7 +52,7 @@ interface OutboxEvent {
   message_id?: string
   attempt_count: number
   last_error?: string
-  payload: any
+  payload: Record<string, unknown>
   scheduled_at: string
   created_at: string
   processed_at?: string
@@ -124,7 +124,7 @@ export const OutboxTable = () => {
     try {
       setActionLoading(eventId)
 
-      const updateData: any = {
+      const updateData: Record<string, string> = {
         status: markAs,
         processed_at: new Date().toISOString()
       }

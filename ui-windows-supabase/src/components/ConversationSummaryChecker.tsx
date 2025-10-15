@@ -195,7 +195,7 @@ export const ConversationSummaryChecker = () => {
     })
   }
 
-  const getSummaryStatusBadge = (summary: any, messageCount: number) => {
+  const getSummaryStatusBadge = (summary: ConversationSummary | null, messageCount: number) => {
     if (!summary) {
       return (
         <Badge variant="destructive" className="flex items-center gap-1">

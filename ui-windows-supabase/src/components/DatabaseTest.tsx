@@ -7,12 +7,19 @@ import { supabase } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/lib/auth-store'
 import { SummaryTestCard } from '@/components/SummaryTestCard'
 
+interface TestResult {
+  test: string
+  success: boolean
+  data: unknown
+  timestamp: string
+}
+
 export const DatabaseTest = () => {
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<TestResult[]>([])
   const [loading, setLoading] = useState(false)
   const { user } = useAuthStore()
 
-  const addResult = (test: string, success: boolean, data: any) => {
+  const addResult = (test: string, success: boolean, data: unknown) => {
     setResults(prev => [...prev, {
       test,
       success,
@@ -71,11 +78,12 @@ export const DatabaseTest = () => {
           conversationId = newConv.id
           addResult('Created Test Conversation', true, { conversation_id: conversationId })
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const error = err as { message?: string; details?: string; code?: string }
         addResult('Conversation Setup', false, {
-          error: err.message,
-          details: err.details,
-          code: err.code
+          error: error.message,
+          details: error.details,
+          code: error.code
         })
         setLoading(false)
         return
@@ -112,16 +120,17 @@ export const DatabaseTest = () => {
 
         addResult('Test Message Deleted', true, 'Cleanup successful')
 
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const error = err as { message?: string; details?: string; hint?: string; code?: string }
         addResult('Message Insert FAILED', false, {
-          error: err.message,
-          details: err.details,
-          hint: err.hint,
-          code: err.code
+          error: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
         })
       }
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       addResult('General Error', false, err)
     }
 
@@ -154,12 +163,13 @@ export const DatabaseTest = () => {
 
         if (error) throw error
         addResult('Read app.conversations', true, { count: data?.length || 0, sample: data?.[0] })
-      } catch (err: any) {
-        addResult('Read app.conversations', false, { 
-          error: err.message, 
-          details: err.details, 
-          hint: err.hint,
-          code: err.code
+      } catch (err: unknown) {
+        const error = err as { message?: string; details?: string; hint?: string; code?: string }
+        addResult('Read app.conversations', false, {
+          error: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
         })
       }
 
@@ -186,12 +196,13 @@ export const DatabaseTest = () => {
           .from('conversations')
           .delete()
           .eq('id', data.id)
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const error = err as { message?: string; details?: string; hint?: string; code?: string }
         addResult('Create Conversation', false, {
-          error: err.message,
-          details: err.details,
-          hint: err.hint,
-          code: err.code
+          error: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
         })
       }
 
@@ -205,16 +216,17 @@ export const DatabaseTest = () => {
 
         if (error) throw error
         addResult('Read app.messages', true, { count: data?.length || 0, sample: data?.[0] })
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const error = err as { message?: string; details?: string; hint?: string; code?: string }
         addResult('Read app.messages', false, {
-          error: err.message,
-          details: err.details,
-          hint: err.hint,
-          code: err.code
+          error: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
         })
       }
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       addResult('General Error', false, err)
     }
 

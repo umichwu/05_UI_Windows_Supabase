@@ -40,15 +40,16 @@ export const useMessages = (conversationId: string | null) => {
       if (error) throw error
 
       setMessages(data || [])
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Unknown error occurred while fetching messages'
+    } catch (err: unknown) {
+      const error = err as { message?: string; details?: string; hint?: string; code?: string }
+      const errorMessage = error?.message || 'Unknown error occurred while fetching messages'
       setError(errorMessage)
       console.error('Error fetching messages:', errorMessage)
       console.error('Fetch messages error details:', {
         message: errorMessage,
-        details: err?.details || null,
-        hint: err?.hint || null,
-        code: err?.code || null
+        details: error?.details || null,
+        hint: error?.hint || null,
+        code: error?.code || null
       })
     } finally {
       setLoading(false)
@@ -113,7 +114,7 @@ export const useMessages = (conversationId: string | null) => {
       );
 
       // Handle file attachments and prepare for LLM
-      let uploadResults: any[] = []
+      let uploadResults: Array<{ success: boolean; path?: string }> = []
       let messageAttachments: { signedUrl: string; mimeType: string }[] = []
 
       if (attachments && attachments.length > 0) {

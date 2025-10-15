@@ -41,7 +41,7 @@ import { supabase } from '@/lib/supabaseClient'
 
 interface ConfigItem {
   key: string
-  value: any
+  value: LLMConfig | OutboxRetryConfig
   updated_at: string
 }
 
@@ -209,7 +209,7 @@ export const ConfigEditor = () => {
       setSaving(configKey)
       setError(null)
 
-      let defaultValue: any
+      let defaultValue: LLMConfig | OutboxRetryConfig
       if (configKey === 'llm') {
         defaultValue = {
           url: 'https://api.openai.com/v1/chat/completions',

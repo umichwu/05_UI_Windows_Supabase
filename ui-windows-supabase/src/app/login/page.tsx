@@ -37,8 +37,9 @@ export default function LoginPage() {
         await signIn(email, password)
       }
       router.push('/chat')
-    } catch (err: any) {
-      setError(err.message || 'Authentication failed')
+    } catch (err: unknown) {
+      const error = err as { message?: string }
+      setError(error.message || 'Authentication failed')
     }
   }
 
@@ -46,8 +47,9 @@ export default function LoginPage() {
     setError('')
     try {
       await signInWithGoogle()
-    } catch (err: any) {
-      setError(err.message || 'Google sign-in failed')
+    } catch (err: unknown) {
+      const error = err as { message?: string }
+      setError(error.message || 'Google sign-in failed')
     }
   }
 

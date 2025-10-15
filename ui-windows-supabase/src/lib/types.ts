@@ -54,7 +54,7 @@ export interface Database {
           user_id: string
           role: MessageRole
           content: string | null
-          metadata: any | null
+          metadata: Record<string, unknown> | null
           created_at: string
         }
         Insert: {
@@ -63,7 +63,7 @@ export interface Database {
           user_id: string
           role: MessageRole
           content?: string | null
-          metadata?: any | null
+          metadata?: Record<string, unknown> | null
           created_at?: string
         }
         Update: {
@@ -72,7 +72,7 @@ export interface Database {
           user_id?: string
           role?: MessageRole
           content?: string | null
-          metadata?: any | null
+          metadata?: Record<string, unknown> | null
           created_at?: string
         }
       }
@@ -118,7 +118,7 @@ export interface Database {
           content: string
           importance: number
           tags: string[] | null
-          metadata: any | null
+          metadata: Record<string, unknown> | null
           created_at: string
           updated_at: string
         }
@@ -131,7 +131,7 @@ export interface Database {
           content: string
           importance?: number
           tags?: string[] | null
-          metadata?: any | null
+          metadata?: Record<string, unknown> | null
           created_at?: string
           updated_at?: string
         }
@@ -144,7 +144,7 @@ export interface Database {
           content?: string
           importance?: number
           tags?: string[] | null
-          metadata?: any | null
+          metadata?: Record<string, unknown> | null
           created_at?: string
           updated_at?: string
         }
@@ -155,7 +155,7 @@ export interface Database {
           user_id: string
           conversation_id: string | null
           event_type: string
-          payload: any
+          payload: Record<string, unknown>
           status: EventStatus
           priority: number
           scheduled_at: string
@@ -170,7 +170,7 @@ export interface Database {
           user_id: string
           conversation_id?: string | null
           event_type: string
-          payload?: any
+          payload?: Record<string, unknown>
           status?: EventStatus
           priority?: number
           scheduled_at?: string
@@ -185,7 +185,7 @@ export interface Database {
           user_id?: string
           conversation_id?: string | null
           event_type?: string
-          payload?: any
+          payload?: Record<string, unknown>
           status?: EventStatus
           priority?: number
           scheduled_at?: string
@@ -210,7 +210,7 @@ export interface Database {
 }
 
 export interface AuthUser extends User {
-  profile?: any // For now, as we don't have a profiles table defined
+  profile?: Record<string, unknown> // For now, as we don't have a profiles table defined
 }
 
 export interface AuthState {
@@ -242,7 +242,7 @@ export interface Message {
   user_id: string
   role: MessageRole
   content: string | null
-  metadata: any | null
+  metadata: Record<string, unknown> | null
   created_at: string
   attachments?: MessageAttachment[]
 }
@@ -286,7 +286,7 @@ export interface UserMemory {
   content: string
   importance: number
   tags: string[] | null
-  metadata: any | null
+  metadata: Record<string, unknown> | null
   created_at: string
   updated_at: string
 }
@@ -296,7 +296,7 @@ export interface OutboxEvent {
   user_id: string
   conversation_id: string | null
   event_type: string
-  payload: any
+  payload: Record<string, unknown>
   status: EventStatus
   priority: number
   scheduled_at: string

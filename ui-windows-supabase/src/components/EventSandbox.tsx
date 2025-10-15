@@ -38,19 +38,37 @@ interface TestEvent {
   id: string
   event_type: string
   status: string
-  payload: any
+  payload: Record<string, unknown>
   created_at: string
   scheduled_at: string
 }
 
+interface Conversation {
+  id: string
+  title?: string
+  msg_count: number
+}
+
+interface Message {
+  id: string
+  role: string
+  content: string
+  created_at: string
+}
+
+interface User {
+  id: string
+  email?: string
+}
+
 export const EventSandbox = () => {
-  const [conversations, setConversations] = useState<any[]>([])
-  const [messages, setMessages] = useState<any[]>([])
+  const [conversations, setConversations] = useState<Conversation[]>([])
+  const [messages, setMessages] = useState<Message[]>([])
   const [recentEvents, setRecentEvents] = useState<TestEvent[]>([])
   const [loading, setLoading] = useState(false)
   const [selectedConversation, setSelectedConversation] = useState<string>('')
   const [selectedMessage, setSelectedMessage] = useState<string>('')
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   // Form states
   const [messageContent, setMessageContent] = useState('This is a test message for outbox event generation.')

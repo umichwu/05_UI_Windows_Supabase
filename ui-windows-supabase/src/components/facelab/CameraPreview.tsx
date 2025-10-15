@@ -17,7 +17,7 @@ export function CameraPreview() {
   const [testResults, setTestResults] = useState<{
     originalImage: string
     detectedImage: string
-    faces: any[]
+    faces: Array<{ bbox?: number[]; emotion?: { dominant: string; confidence: number } }>
   } | null>(null)
 
   const {

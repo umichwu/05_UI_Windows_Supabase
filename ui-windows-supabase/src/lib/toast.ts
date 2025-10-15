@@ -98,7 +98,7 @@ class ToastManager {
 export const toast = new ToastManager()
 
 // Convenience functions for common use cases
-export const showError = (error: any) => {
+export const showError = (error: unknown) => {
   const message = error instanceof Error ? error.message : 'An unexpected error occurred'
   toast.error('Error', message)
 }
@@ -107,7 +107,7 @@ export const showSuccess = (message: string) => {
   toast.success('Success', message)
 }
 
-export const showApiError = (operation: string, error: any) => {
+export const showApiError = (operation: string, error: unknown) => {
   const message = error instanceof Error ? error.message : 'Operation failed'
   toast.error(`${operation} Failed`, message)
 }

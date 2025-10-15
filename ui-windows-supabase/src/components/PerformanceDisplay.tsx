@@ -8,7 +8,7 @@ interface PerformanceMetric {
   operationName: string
   duration: number
   percentage: number
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 }
 
 interface PerformanceSummary {
@@ -24,7 +24,7 @@ export const PerformanceDisplay = () => {
   useEffect(() => {
     // Listen for performance data from console
     const originalLog = console.log
-    console.log = (...args: any[]) => {
+    console.log = (...args: unknown[]) => {
       originalLog(...args)
 
       // Check if this is a performance summary

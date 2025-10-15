@@ -74,8 +74,9 @@ export const useConversationSummary = () => {
       })
 
       setSummaries(result)
-    } catch (err: any) {
-      const errorMessage = err?.message || 'Unknown error occurred while fetching conversation summaries'
+    } catch (err: unknown) {
+      const error = err as { message?: string }
+      const errorMessage = error?.message || 'Unknown error occurred while fetching conversation summaries'
       console.error('Error fetching conversation summaries:', errorMessage)
       setError(errorMessage)
     } finally {
@@ -128,9 +129,10 @@ export const useConversationSummary = () => {
         summary: summaryData,
         messages: messagesData || []
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { message?: string }
       console.error('Error fetching conversation details:', err)
-      setError(err?.message || 'Failed to fetch conversation details')
+      setError(error?.message || 'Failed to fetch conversation details')
       return null
     }
   }
@@ -198,7 +200,7 @@ export const useConversationSummary = () => {
         lastSummaryDate: summary.created_at,
         messagesSinceLastSummary: count || 0
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error checking summary status:', err)
       return {
         hasSummary: false,
