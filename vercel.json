@@ -1,6 +1,3 @@
-{ 
-  "buildCommand": "cd ui-windows-supabase && npm run build",
-  "outputDirectory": "ui-windows-supabase/.next",
-  "installCommand": "cd ui-windows-supabase && npm install",
-  "framework": "nextjs"
+{
+  "rootDirectory": "ui-windows-supabase"
 }
