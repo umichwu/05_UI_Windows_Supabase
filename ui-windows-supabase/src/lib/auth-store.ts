@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { supabase } from './supabaseClient'
 import { AuthState, AuthUser } from './types'
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: true,
 

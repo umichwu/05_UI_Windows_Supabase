@@ -30,7 +30,7 @@
 
 ### 2. Deploy to Vercel
 
-**Option A: GitHub Integration (Recommended)**
+**Option A: GitHub Integration (Recommended)**  
 1. Push code to GitHub repository
 2. Go to [vercel.com](https://vercel.com) → "New Project"
 3. Import your GitHub repository

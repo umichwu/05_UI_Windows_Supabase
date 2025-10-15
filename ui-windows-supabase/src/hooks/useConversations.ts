@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/lib/auth-store'
 import { Conversation } from '@/lib/types'
@@ -9,7 +9,7 @@ export const useConversations = () => {
   const [error, setError] = useState<string | null>(null)
   const { user } = useAuthStore()
 
-  const fetchConversations = async () => {
+  const fetchConversations = useCallback(async () => {
     if (!user) return
 
     try {
@@ -41,7 +41,7 @@ export const useConversations = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [user])
 
   const createConversation = async (title: string): Promise<Conversation | null> => {
     if (!user) return null

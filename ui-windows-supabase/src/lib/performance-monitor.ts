@@ -7,7 +7,7 @@ export interface PerformanceMetrics {
   startTime: number
   endTime?: number
   duration?: number
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 }
 
 export class PerformanceMonitor {
@@ -23,7 +23,7 @@ export class PerformanceMonitor {
   /**
    * Start tracking an operation
    */
-  start(operationName: string, metadata?: Record<string, any>): void {
+  start(operationName: string, metadata?: Record<string, unknown>): void {
     const metric: PerformanceMetrics = {
       operationName,
       startTime: performance.now(),
@@ -36,7 +36,7 @@ export class PerformanceMonitor {
   /**
    * End tracking an operation
    */
-  end(operationName: string, metadata?: Record<string, any>): number {
+  end(operationName: string, metadata?: Record<string, unknown>): number {
     const metric = this.metrics.get(operationName)
     if (!metric) {
       console.warn(`⚠️ Operation "${operationName}" was not started`)
