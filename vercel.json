@@ -1,4 +1,1 @@
-{
-  "buildCommand": "npm --prefix ui-windows-supabase run build",
-  "installCommand": "npm --prefix ui-windows-supabase install"
-}
+{}
