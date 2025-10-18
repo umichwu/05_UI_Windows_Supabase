@@ -1,14 +1,14 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/face/enroll/route": "app/api/face/enroll/route.js",
   "/api/face/analyze/route": "app/api/face/analyze/route.js",
+  "/api/face/enroll/route": "app/api/face/enroll/route.js",
   "/api/face/recognize/route": "app/api/face/recognize/route.js",
   "/page": "app/page.js",
-  "/facelab/page": "app/facelab/page.js",
-  "/chat/page": "app/chat/page.js",
-  "/login/page": "app/login/page.js",
   "/face-recognition/page": "app/face-recognition/page.js",
-  "/summary-checker/page": "app/summary-checker/page.js",
-  "/demo-panels/page": "app/demo-panels/page.js"
+  "/chat/page": "app/chat/page.js",
+  "/facelab/page": "app/facelab/page.js",
+  "/login/page": "app/login/page.js",
+  "/demo-panels/page": "app/demo-panels/page.js",
+  "/summary-checker/page": "app/summary-checker/page.js"
 }

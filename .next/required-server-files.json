@@ -2,7 +2,6 @@
   "version": 1,
   "config": {
     "env": {},
-    "webpack": null,
     "eslint": {
       "ignoreDuringBuilds": false
     },
@@ -204,6 +203,7 @@
       "browserDebugInfoInTerminal": false,
       "optimizeRouterScrolling": false,
       "optimizePackageImports": [
+        "recharts",
         "lucide-react",
         "date-fns",
         "lodash-es",
@@ -222,7 +222,6 @@
         "rxjs",
         "@mui/material",
         "@mui/icons-material",
-        "recharts",
         "react-use",
         "effect",
         "@effect/schema",
