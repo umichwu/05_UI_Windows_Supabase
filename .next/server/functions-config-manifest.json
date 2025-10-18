@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/face/analyze": {},
+    "/api/face/enroll": {},
+    "/api/face/recognize": {}
+  }
+}

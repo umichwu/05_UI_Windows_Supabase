@@ -2,3 +2,4 @@
 venv/
 .venv/
 .ui-windows-supabase\face-api\venv\
+node_modules
