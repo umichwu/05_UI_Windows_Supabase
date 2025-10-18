@@ -4,11 +4,11 @@
   "/api/face/enroll/route": "app/api/face/enroll/route.js",
   "/api/face/analyze/route": "app/api/face/analyze/route.js",
   "/api/face/recognize/route": "app/api/face/recognize/route.js",
-  "/page": "app/page.js",
-  "/login/page": "app/login/page.js",
-  "/facelab/page": "app/facelab/page.js",
   "/demo-panels/page": "app/demo-panels/page.js",
+  "/facelab/page": "app/facelab/page.js",
+  "/page": "app/page.js",
   "/face-recognition/page": "app/face-recognition/page.js",
   "/chat/page": "app/chat/page.js",
+  "/login/page": "app/login/page.js",
   "/summary-checker/page": "app/summary-checker/page.js"
 }
