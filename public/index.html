@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Windows Supabase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        a {
+            display: block;
+            padding: 15px 20px;
+            background: #0070f3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        a:hover {
+            background: #0051cc;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e7f5e7;
+            border-left: 4px solid #4caf50;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to UI Windows Supabase</h1>
+        <div class="status">
+            <strong>Status:</strong> Deployment is working! This is a test page.
+        </div>
+        <div class="links">
+            <a href="/ui-windows-supabase/login">Go to Login Page</a>
+            <a href="/ui-windows-supabase/chat">Go to Chat Page</a>
+            <a href="/ui-windows-supabase">Go to Main App</a>
+        </div>
+    </div>
+</body>
+</html>
