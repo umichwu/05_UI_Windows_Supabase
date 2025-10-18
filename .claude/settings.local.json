@@ -48,7 +48,10 @@
       "Bash(git restore --staged .claude/settings.local.json .gitignore node_modules)",
       "Bash(git fetch origin)",
       "Bash(test -d ui-windows-supabase)",
-      "Bash(git rm -rf ui-windows-supabase/)"
+      "Bash(git rm -rf ui-windows-supabase/)",
+      "Read(//tmp/**)",
+      "Bash(npm ls recharts)",
+      "Bash(git restore --staged .claude/settings.local.json .next)"
     ],
     "deny": [],
     "ask": []
