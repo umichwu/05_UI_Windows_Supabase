@@ -39,7 +39,8 @@
       "Bash(git commit:*)",
       "Bash(git ls-tree:*)",
       "Bash(vercel project:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []
