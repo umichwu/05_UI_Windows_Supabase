@@ -2,13 +2,13 @@
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/_not-found/page": "app/_not-found/page.js",
   "/api/face/enroll/route": "app/api/face/enroll/route.js",
-  "/api/face/recognize/route": "app/api/face/recognize/route.js",
   "/api/face/analyze/route": "app/api/face/analyze/route.js",
-  "/page": "app/page.js",
-  "/summary-checker/page": "app/summary-checker/page.js",
+  "/api/face/recognize/route": "app/api/face/recognize/route.js",
   "/login/page": "app/login/page.js",
-  "/facelab/page": "app/facelab/page.js",
-  "/chat/page": "app/chat/page.js",
+  "/page": "app/page.js",
   "/demo-panels/page": "app/demo-panels/page.js",
-  "/face-recognition/page": "app/face-recognition/page.js"
+  "/summary-checker/page": "app/summary-checker/page.js",
+  "/facelab/page": "app/facelab/page.js",
+  "/face-recognition/page": "app/face-recognition/page.js",
+  "/chat/page": "app/chat/page.js"
 }

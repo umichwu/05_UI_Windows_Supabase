@@ -2,13 +2,13 @@
   "/favicon.ico/route": "/favicon.ico",
   "/_not-found/page": "/_not-found",
   "/api/face/enroll/route": "/api/face/enroll",
-  "/api/face/recognize/route": "/api/face/recognize",
   "/api/face/analyze/route": "/api/face/analyze",
-  "/page": "/",
-  "/summary-checker/page": "/summary-checker",
+  "/api/face/recognize/route": "/api/face/recognize",
   "/login/page": "/login",
-  "/facelab/page": "/facelab",
-  "/chat/page": "/chat",
+  "/page": "/",
   "/demo-panels/page": "/demo-panels",
-  "/face-recognition/page": "/face-recognition"
+  "/summary-checker/page": "/summary-checker",
+  "/facelab/page": "/facelab",
+  "/face-recognition/page": "/face-recognition",
+  "/chat/page": "/chat"
 }

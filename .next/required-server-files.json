@@ -98,7 +98,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/mnt/d/2022_After/Gilbert/_Code/_Claude_Code/",
+    "outputFileTracingRoot": "/mnt/d/2022_After/Gilbert/_Code/_Claude_Code/05_UI_Windows_Supabase",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -287,11 +287,11 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/mnt/d/2022_After/Gilbert/_Code/_Claude_Code/"
+      "root": "/mnt/d/2022_After/Gilbert/_Code/_Claude_Code/05_UI_Windows_Supabase"
     }
   },
   "appDir": "/mnt/d/2022_After/Gilbert/_Code/_Claude_Code/05_UI_Windows_Supabase",
-  "relativeAppDir": "05_UI_Windows_Supabase",
+  "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",
