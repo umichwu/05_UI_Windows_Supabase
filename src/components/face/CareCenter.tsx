@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Heart, TrendingUp, AlertCircle, Settings, CheckCircle2, Clock, Plus, Edit, Trash2 } from 'lucide-react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
+// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
 import { supabase } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/lib/auth-store'
 
@@ -462,29 +462,10 @@ export const CareCenter = () => {
               </div>
             </CardHeader>
             <CardContent>
-              {moodData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={formatChartData(moodData)}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    {EMOTIONS.map(emotion => (
-                      <Line
-                        key={emotion}
-                        type="monotone"
-                        dataKey={emotion}
-                        stroke={EMOTION_COLORS[emotion as keyof typeof EMOTION_COLORS]}
-                        strokeWidth={2}
-                      />
-                    ))}
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="text-center py-8 text-gray-500">
-                  No mood data available. Start the camera to begin collecting data.
-                </div>
-              )}
+              {/* Chart temporarily disabled due to recharts build issues */}
+              <div className="text-center py-8 text-gray-500">
+                Mood chart temporarily disabled - will be restored after fixing recharts compatibility
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

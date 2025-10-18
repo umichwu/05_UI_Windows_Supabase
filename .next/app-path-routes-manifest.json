@@ -1,0 +1,14 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/_not-found/page": "/_not-found",
+  "/api/face/enroll/route": "/api/face/enroll",
+  "/api/face/analyze/route": "/api/face/analyze",
+  "/api/face/recognize/route": "/api/face/recognize",
+  "/page": "/",
+  "/login/page": "/login",
+  "/facelab/page": "/facelab",
+  "/demo-panels/page": "/demo-panels",
+  "/face-recognition/page": "/face-recognition",
+  "/chat/page": "/chat",
+  "/summary-checker/page": "/summary-checker"
+}
