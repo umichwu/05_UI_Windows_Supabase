@@ -89,62 +89,42 @@ export const formatMessagesForLLM = (messages: Message[]): LLMMessage[] => {
 }
 
 /**
- * Call Gemini API
+ * Call Gemini API via backend route with Google Search grounding
  */
 const callGemini = async (
   config: GeminiConfig,
-  messages: LLMMessage[]
+  messages: LLMMessage[],
+  userId: string
 ): Promise<string | null> => {
   const monitor = getCurrentMonitor()
   monitor?.start('gemini-api-call', { model: config.model, messageCount: messages.length })
 
   try {
-    monitor?.start('gemini-format-request')
-    // Convert messages to Gemini format
-    const geminiContents = messages
-      .filter(m => m.role !== 'system') // Gemini doesn't use system messages in the same way
-      .map(msg => ({
-        role: msg.role === 'assistant' ? 'model' : 'user',
-        parts: typeof msg.content === 'string'
-          ? [{ text: msg.content }]
-          : msg.content.map(part =>
-              part.type === 'text'
-                ? { text: part.text || '' }
-                : { inlineData: { mimeType: 'image/jpeg', data: part.image_url?.url || '' }}
-            )
-      }))
-
-    const requestPayload = {
-      contents: geminiContents,
-      generationConfig: {
-        temperature: config.temperature,
-        maxOutputTokens: config.max_tokens || 1000
-      }
-    }
-    monitor?.end('gemini-format-request')
-
-    console.log('Calling Gemini with:', {
+    console.log('Calling Gemini via backend API with Google Search grounding:', {
       model: config.model,
-      messageCount: geminiContents.length
+      messageCount: messages.length,
+      userId: userId ? '[REDACTED]' : 'MISSING'
     })
 
-    monitor?.start('gemini-network-request')
-    const response = await fetch(
-      `${config.url}/models/${config.model}:generateContent`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-goog-api-key': config.api_key
-        },
-        body: JSON.stringify(requestPayload)
-      }
-    )
-    monitor?.end('gemini-network-request', { status: response.status })
+    monitor?.start('gemini-backend-request')
+    // Call the backend API route instead of directly calling Gemini
+    const response = await fetch('/api/gemini', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        messages,
+        userId,
+        temperature: config.temperature,
+        maxTokens: config.max_tokens || 1000
+      })
+    })
+    monitor?.end('gemini-backend-request', { status: response.status })
 
     if (!response.ok) {
       const errorText = await response.text()
-      console.error('Gemini API error:', response.status, errorText)
+      console.error('Gemini backend API error:', response.status, errorText)
       monitor?.end('gemini-api-call', { success: false, error: errorText })
       return null
     }
@@ -153,20 +133,22 @@ const callGemini = async (
     const result = await response.json()
     monitor?.end('gemini-parse-response')
 
-    // Handle Gemini response format
-    if (result.candidates && result.candidates.length > 0) {
-      const candidate = result.candidates[0]
-      if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
-        const responseText = candidate.content.parts[0].text || null
-        monitor?.end('gemini-api-call', {
-          success: true,
-          responseLength: responseText?.length
-        })
-        return responseText
-      }
+    if (result.success && result.response) {
+      console.log('Gemini response received:', {
+        responseLength: result.response.length,
+        hasGroundingMetadata: !!result.groundingMetadata,
+        groundingChunks: result.groundingMetadata?.groundingChunks?.length || 0
+      })
+
+      monitor?.end('gemini-api-call', {
+        success: true,
+        responseLength: result.response.length,
+        grounded: !!result.groundingMetadata
+      })
+      return result.response
     }
 
-    console.error('Unexpected Gemini response format:', result)
+    console.error('Unexpected backend response format:', result)
     monitor?.end('gemini-api-call', { success: false, error: 'Unexpected response format' })
     return null
   } catch (err) {
@@ -268,7 +250,8 @@ export const callLLM = async (
   messages: Message[],
   newUserMessage: string,
   messageAttachments?: { signedUrl: string; mimeType: string }[],
-  modelProvider?: 'openai' | 'gemini'
+  modelProvider?: 'openai' | 'gemini',
+  userId?: string
 ): Promise<string | null> => {
   try {
     const configKey = modelProvider === 'gemini' ? 'gemini' : 'llm'
@@ -346,7 +329,11 @@ export const callLLM = async (
 
     // Route to appropriate API based on provider
     if (modelProvider === 'gemini') {
-      return callGemini(config as GeminiConfig, llmMessages)
+      if (!userId) {
+        console.error('User ID is required for Gemini API calls')
+        return null
+      }
+      return callGemini(config as GeminiConfig, llmMessages, userId)
     } else {
       return callOpenAI(config, llmMessages)
     }

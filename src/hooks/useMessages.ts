@@ -196,7 +196,7 @@ export const useMessages = (conversationId: string | null) => {
         try {
           monitor.start('llm-call-and-save')
           const provider = modelProvider === 'gemini' ? 'gemini' : 'openai'
-          const llmResponse = await callLLM(messages, content, messageAttachments, provider);
+          const llmResponse = await callLLM(messages, content, messageAttachments, provider, user.id);
 
           if (llmResponse) {
             // Insert assistant message
