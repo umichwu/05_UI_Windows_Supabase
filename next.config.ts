@@ -1,18 +1,29 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  webpack: (config, { isServer }) => {
-    // Force recharts to resolve to CommonJS version (main) instead of ES modules (module)
-    // This prevents module resolution errors in production builds
+  experimental: {
+    // Only optimize specific packages, not recharts
+    // By providing an explicit list, Next.js won't auto-optimize all packages
+    optimizePackageImports: [
+      '@radix-ui/react-avatar',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-label',
+      '@radix-ui/react-select',
+      '@radix-ui/react-separator',
+      '@radix-ui/react-slot',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-toast',
+      'lucide-react',
+    ],
+  },
+
+  webpack: (config) => {
+    // Force recharts to resolve to CommonJS version
     config.resolve.alias = {
       ...config.resolve.alias,
+      'recharts': 'recharts/lib/index.js',
     };
-
-    // Modify how webpack resolves package.json fields
-    // Prioritize 'main' over 'module' for recharts to use stable CommonJS build
-    config.resolve.mainFields = isServer
-      ? ['main', 'module', 'browser']
-      : ['browser', 'main', 'module'];
 
     return config;
   },
