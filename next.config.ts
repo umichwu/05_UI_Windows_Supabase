@@ -17,16 +17,6 @@ const nextConfig: NextConfig = {
       'lucide-react',
     ],
   },
-
-  webpack: (config) => {
-    // Force recharts to resolve to CommonJS version
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'recharts': 'recharts/lib/index.js',
-    };
-
-    return config;
-  },
 };
 
 export default nextConfig;
