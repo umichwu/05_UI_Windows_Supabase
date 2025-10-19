@@ -268,6 +268,136 @@ ON app.messages(created_at DESC)
 WHERE created_at > (now() - interval '30 days');
 ```
 
+## Library Compatibility with Next.js 15 + Vercel
+
+⚠️ **CRITICAL: Some popular npm packages are incompatible with Next.js 15's barrel optimization**
+
+### Known Incompatible Packages
+
+| Package | Status | Recommended Alternative |
+|---------|--------|------------------------|
+| recharts (2.x-3.x) | ❌ BROKEN on Vercel | ✅ chart.js + react-chartjs-2 |
+| Some d3 wrappers | ⚠️ May fail | ✅ Direct d3 usage or Chart.js |
+| Older UI libraries | ⚠️ Test first | ✅ Radix UI, Headless UI |
+
+### How to Identify Incompatible Packages
+
+**Warning Signs:**
+1. Build succeeds locally but fails on Vercel
+2. Error message contains `__barrel_optimize__`
+3. Error says `Module not found: Can't resolve './internalFile'`
+4. Package has ES6 exports but incomplete module structure
+
+**Example Error:**
+```bash
+./node_modules/recharts/lib/chart/LineChart.js
+Module not found: Can't resolve './generateCategoricalChart'
+
+Import trace:
+__barrel_optimize__?names=LineChart,Line!=!./node_modules/recharts/es6/index.js
+```
+
+**Action: REPLACE THE PACKAGE immediately** - don't waste time trying to fix it.
+
+### Verified Compatible Packages
+
+✅ **Charting:** chart.js, react-chartjs-2
+✅ **UI Components:** Radix UI, Headless UI, shadcn/ui
+✅ **Forms:** react-hook-form
+✅ **Icons:** lucide-react, react-icons
+✅ **Date/Time:** date-fns
+✅ **State:** zustand, jotai
+
+### Testing New Packages
+
+Before using any new package in production:
+
+```bash
+# 1. Add the package
+npm install new-package
+
+# 2. Test locally
+npm run build
+
+# 3. Deploy to Vercel staging
+git add .
+git commit -m "Test: Add new-package"
+git push
+
+# 4. Wait for Vercel build to complete
+# If it fails with barrel optimization errors → find alternative
+```
+
+### Migration Guide: Recharts → Chart.js
+
+If you're currently using recharts, here's how to migrate:
+
+```bash
+# 1. Install Chart.js
+npm uninstall recharts
+npm install chart.js react-chartjs-2
+
+# 2. Update imports in your component
+```
+
+**Before (recharts):**
+```typescript
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+
+<ResponsiveContainer width="100%" height={300}>
+  <LineChart data={data}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="name" />
+    <YAxis />
+    <Tooltip />
+    <Line type="monotone" dataKey="value" stroke="#8884d8" />
+  </LineChart>
+</ResponsiveContainer>
+```
+
+**After (Chart.js):**
+```typescript
+import { Line } from 'react-chartjs-2'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+
+<div style={{ height: '300px' }}>
+  <Line
+    data={{
+      labels: data.map(d => d.name),
+      datasets: [{
+        label: 'Value',
+        data: data.map(d => d.value),
+        borderColor: '#8884d8',
+        tension: 0.4
+      }]
+    }}
+    options={{
+      responsive: true,
+      maintainAspectRatio: false
+    }}
+  />
+</div>
+```
+
+**Benefits:**
+- ✅ Works perfectly on Vercel
+- ✅ Smaller bundle size
+- ✅ More widely used and maintained
+- ✅ Better documentation
+
+---
+
 ## Troubleshooting
 
 ### Common Deployment Issues
@@ -283,6 +413,10 @@ npx tsc --noEmit
 # Verify all dependencies
 npm install
 ```
+
+**⚠️ If you see "Module not found" with `__barrel_optimize__` in the error:**
+→ See VERCEL_DEPLOYMENT_TROUBLESHOOTING.md Issue 2C immediately
+→ Replace the package - don't try to fix it
 
 #### Environment Variable Issues
 - Double-check spelling of variable names
