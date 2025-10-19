@@ -68,18 +68,13 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(config.api_key)
 
     // Get the Gemini model with Google Search grounding
-    // Note: Google Search grounding is configured using the googleSearchRetrieval tool
+    // Note: Use 'googleSearch' for Gemini 2.0+ or 'google_search_retrieval' for Gemini 1.5
     const model = genAI.getGenerativeModel({
       model: config.model || 'gemini-1.5-flash',
       // Enable Google Search tool for real-time grounding
       tools: [
         {
-          googleSearchRetrieval: {
-            dynamicRetrievalConfig: {
-              mode: 'MODE_DYNAMIC',
-              dynamicThreshold: 0.3
-            }
-          }
+          googleSearch: {} // Correct tool name for Google Search grounding
         }
       ] as any // Using 'as any' due to SDK type limitations
     })

@@ -54,7 +54,9 @@
       "Bash(git restore --staged .claude/settings.local.json .next)",
       "Bash(git rm -r --cached .next)",
       "Bash(git restore --staged .claude/settings.local.json)",
-      "Bash(npm view recharts version)"
+      "Bash(npm view recharts version)",
+      "WebSearch",
+      "WebFetch(domain:ai.google.dev)"
     ],
     "deny": [],
     "ask": []

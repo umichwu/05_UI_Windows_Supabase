@@ -95,11 +95,20 @@ When you ask Gemini a question:
    ```typescript
    tools: [{ googleSearch: {} }]
    ```
+   **Note:** Use `googleSearch` for Gemini 2.0+ or `google_search_retrieval` for older Gemini 1.5 models
 4. **Gemini automatically decides** when to use web search based on the query
 5. **Returns response** with:
    - The generated text answer
    - `groundingMetadata` (sources, search queries used)
    - Grounding chunks (snippets from web pages)
+
+## Important Note About Google Search Grounding
+
+**Pricing:** Google Search grounding is a **paid feature** that costs **$35 per 1,000 grounded queries**. Make sure your Google AI API key has billing enabled and payment method configured.
+
+**Availability:** This feature is currently available through:
+- Google AI Studio (free tier with limitations)
+- Gemini API with paid tier ($35/1000 queries)
 
 ## Testing
 
