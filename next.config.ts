@@ -5,9 +5,24 @@ const nextConfig: NextConfig = {
   transpilePackages: ['recharts'],
 
   experimental: {
-    // Empty array prevents automatic package import optimization
-    // This avoids recharts path resolution errors
+    // Completely disable package import optimization
     optimizePackageImports: [],
+  },
+
+  webpack: (config, { isServer }) => {
+    // Force recharts to use CommonJS build instead of broken ES6 build
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'recharts': require.resolve('recharts/lib/index.js'),
+    };
+
+    // Prioritize 'main' field over 'module' field in package.json
+    // This ensures CommonJS is used instead of ES6
+    config.resolve.mainFields = isServer
+      ? ['main', 'module']
+      : ['main', 'module'];
+
+    return config;
   },
 };
 
