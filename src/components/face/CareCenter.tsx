@@ -11,15 +11,30 @@ import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Heart, TrendingUp, AlertCircle, Settings, CheckCircle2, Clock, Plus, Edit, Trash2 } from 'lucide-react'
-// Import recharts components individually to bypass Next.js barrel optimization
-// This prevents "Module not found" errors during Vercel builds
-import LineChart from 'recharts/lib/chart/LineChart'
-import Line from 'recharts/lib/cartesian/Line'
-import XAxis from 'recharts/lib/cartesian/XAxis'
-import YAxis from 'recharts/lib/cartesian/YAxis'
-import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid'
-import Tooltip from 'recharts/lib/component/Tooltip'
-import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer'
+import { Line } from 'react-chartjs-2'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip as ChartTooltip,
+  Legend,
+  Filler
+} from 'chart.js'
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  ChartTooltip,
+  Legend,
+  Filler
+)
 import { supabase } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/lib/auth-store'
 
@@ -471,23 +486,40 @@ export const CareCenter = () => {
             </CardHeader>
             <CardContent>
               {moodData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={formatChartData(moodData)}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" />
-                    <YAxis />
-                    <Tooltip />
-                    {EMOTIONS.map(emotion => (
-                      <Line
-                        key={emotion}
-                        type="monotone"
-                        dataKey={emotion}
-                        stroke={EMOTION_COLORS[emotion as keyof typeof EMOTION_COLORS]}
-                        strokeWidth={2}
-                      />
-                    ))}
-                  </LineChart>
-                </ResponsiveContainer>
+                <div style={{ height: '300px' }}>
+                  <Line
+                    data={{
+                      labels: formatChartData(moodData).map(d => d.time),
+                      datasets: EMOTIONS.map(emotion => ({
+                        label: emotion.charAt(0).toUpperCase() + emotion.slice(1),
+                        data: formatChartData(moodData).map(d => (d as any)[emotion] || 0),
+                        borderColor: EMOTION_COLORS[emotion as keyof typeof EMOTION_COLORS],
+                        backgroundColor: EMOTION_COLORS[emotion as keyof typeof EMOTION_COLORS] + '20',
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 3,
+                      }))
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'top' as const,
+                        },
+                        tooltip: {
+                          mode: 'index' as const,
+                          intersect: false,
+                        },
+                      },
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                        },
+                      },
+                    }}
+                  />
+                </div>
               ) : (
                 <div className="text-center py-8 text-gray-500">
                   No mood data available. Start the camera to begin collecting data.
