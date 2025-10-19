@@ -51,7 +51,9 @@
       "Bash(git rm -rf ui-windows-supabase/)",
       "Read(//tmp/**)",
       "Bash(npm ls recharts)",
-      "Bash(git restore --staged .claude/settings.local.json .next)"
+      "Bash(git restore --staged .claude/settings.local.json .next)",
+      "Bash(git rm -r --cached .next)",
+      "Bash(git restore --staged .claude/settings.local.json)"
     ],
     "deny": [],
     "ask": []
